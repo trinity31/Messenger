@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'; //Input 추가
+import { Component, Input, OnInit } from '@angular/core'; //Input 추가
 import { Message } from './message.model';
 import { MessageService } from "./message.service";
 
@@ -23,15 +23,16 @@ import { MessageService } from "./message.service";
 
 export class MessageComponent {
     @Input() message: Message;  //Input : 외부에서 Assign 가능하도록 @Input 추가
-    @Output() editClicked = new EventEmitter<string>(); 
 
     constructor(private messageService: MessageService) {}
     
     onEdit() {
-        this.editClicked.emit('A new value');
+        this.messageService.editMessage(this.message);
     }
 
     onDelete() {
         this.messageService.deleteMessage(this.message);
     }
+
+    
 }
